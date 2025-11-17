@@ -12,8 +12,8 @@ def run():
     Run the crew.
     """
     inputs = {
-        'website_url': 'sample_value',
-        'target_sections': 'sample_value'
+        'website_url': 'https://data-driven-world.github.io/2023/notes/introduction',
+        'target_sections': 'Week 2'
     }
     ConceptMapGeneratorCrew().crew().kickoff(inputs=inputs)
 
@@ -23,8 +23,8 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        'website_url': 'sample_value',
-        'target_sections': 'sample_value'
+        'website_url': 'https://data-driven-world.github.io/2023/notes/introduction',
+        'target_sections': 'Week 1'
     }
     try:
         ConceptMapGeneratorCrew().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
