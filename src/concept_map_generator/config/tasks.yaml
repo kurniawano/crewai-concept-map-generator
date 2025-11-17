@@ -1,0 +1,63 @@
+---
+extract_website_content:
+  description: Read and extract content from the online textbook website provided
+    in {website_url}. Retrieve all relevant textbook chapters, topics, and educational
+    material. Clean and organize the extracted content, removing navigation elements,
+    advertisements, and irrelevant content to focus on the core educational material.
+  expected_output: Clean, structured textbook content extracted from the website,
+    organized by chapters or sections. The output should include all relevant topics,
+    explanations, and educational material in a readable format, ready for analysis
+    and keyword extraction.
+  agent: website_content_extractor
+crawl_target_sections:
+  description: Crawl the online textbook website from {website_url} to locate and
+    identify all pages, links, and sections that match the target sections or chapters
+    specified in {target_sections}. Navigate through the website structure, find table
+    of contents, chapter listings, or section indexes, and collect all relevant URLs
+    that contain the requested educational content.
+  expected_output: A comprehensive list of relevant URLs and page links from the textbook
+    website that correspond to the target sections/chapters. Include the URL, page
+    title, section name, and a brief description of the content found on each relevant
+    page. Format as a structured list with clear categorization by chapter or section.
+  agent: website_crawler
+  context:
+  - extract_website_content
+analyze_important_topics:
+  description: Analyze the crawled sections and URLs from the specific target chapters/sections
+    and create a focused list of the most important and relevant topics. Remove redundant
+    information, combine related concepts, and prioritize topics based on their educational
+    significance and foundational importance for understanding the subject matter
+    from the target sections.
+  expected_output: A clean, organized list of 8-15 important topics from the target
+    textbook sections, formatted as a numbered list with brief descriptions explaining
+    why each topic is significant. Each topic should be concise but comprehensive
+    enough to capture its core essence from the specific sections requested.
+  agent: content_analyzer
+  context:
+  - crawl_target_sections
+extract_key_keywords:
+  description: From the analyzed important topics, extract and identify the most crucial
+    keywords, terms, and concepts that represent the core elements of each topic.
+    Focus on technical terms, fundamental concepts, key processes, and important terminology
+    that would be essential for understanding and creating connections in a concept
+    map.
+  expected_output: 'A comprehensive list of 20-40 keywords organized by category or
+    topic area. Each keyword should include: the term itself, a brief definition or
+    context, and its relationship to the main topics. Format as a structured list
+    with categories and subcategories where appropriate.'
+  agent: keyword_specialist
+  context:
+  - analyze_important_topics
+generate_mind_map:
+  description: Create a comprehensive mind map from the extracted keywords, organizing
+    them into a hierarchical structure with main concepts at the center, branching
+    out to related sub-concepts and details. Design both a textual representation
+    and generate code that can be used with mind mapping tools like draw.io, XMind,
+    or Mermaid format.
+  expected_output: 'A complete mind map package including: 1) A hierarchical textual
+    outline showing the mind map structure, 2) Mermaid diagram code for the mind map,
+    3) Instructions for using the mind map with popular tools, and 4) A brief explanation
+    of the connections and relationships between concepts in the map.'
+  agent: mind_map_designer
+  context:
+  - extract_key_keywords
